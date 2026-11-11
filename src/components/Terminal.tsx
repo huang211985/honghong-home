@@ -4,22 +4,21 @@ type HistoryItem = { type: 'in' | 'out'; text: string }
 
 const FILE_SYSTEM: Record<string, string> = {
   'about.txt': [
-    '姓名：Сидор（西多尔）',
-    '身份：layman —— 一个坦然承认自己是外行的人',
-    '目标：重新学习计算机，从零开始，但不着急',
-    '座右铭：Layman 不是终点，是起点。',
+    '姓名：志宏',
+    '俄语名：Сидор（西多尔）',
+    '身份：学习地质的一名学生',
+    '日常：上课、看石头、敲石头，偶尔敲敲键盘。',
   ].join('\n'),
   'now.txt': [
-    '状态：准备重新学习计算机',
-    '正在做的事：收集学习路线、搭这个主页',
-    '下一步：数学基础 + 一门编程语言',
+    '状态：在读地质专业',
+    '正在做的事：上课、实验、攒石头标本',
+    '下一步：野外实习',
   ].join('\n'),
   'plan.txt': [
-    '阶段一：计算机科学导论 + 数学基础',
-    '阶段二：一门语言（Python 或 C）',
-    '阶段三：数据结构与算法',
-    '阶段四：计算机系统 + 网络',
-    '阶段五：做项目，做真正的项目',
+    '本学期：普通地质学',
+    '然后是：结晶学与矿物学',
+    '重头戏：野外实习，去山里看真的地层',
+    '长期目标：亲手摸到教科书里的每一类石头',
   ].join('\n'),
   'secret.txt': '你发现了一个秘密文件。\n其实也没什么秘密——坚持本身就是彩蛋。\n（输入 konami 有惊喜）',
 }
@@ -43,22 +42,22 @@ function respond(input: string): string[] {
         '  exit       关闭终端',
       ]
     case 'whoami':
-      return ['sidor —— layman（暂时），未来的一名计算机学习者。']
+      return ['zhihong —— 一名学地质的学生，石头和代码一样有趣。']
     case 'ls':
-      return [...Object.keys(FILE_SYSTEM), 'hello-world.py']
+      return [...Object.keys(FILE_SYSTEM), 'hello.py']
     case 'cat': {
       const f = args[0]
       if (!f) return ['用法：cat <文件名>，先 ls 看看有什么']
-      if (f === 'hello-world.py') return ['print("Hello, I am a layman no more.")']
+      if (f === 'hello.py') return ['print("Hello, I study rocks.")']
       if (FILE_SYSTEM[f]) return FILE_SYSTEM[f].split('\n')
       return [`cat: ${f}: 没有这个文件（但你能找到它，说明你在探索，很好）`]
     }
     case 'uname':
-      return ['LaymanOS 0.1.0 sidor-terminal (relearn-cs edition)']
+      return ['ZhihongOS 1.0 geology-edition (sidor-terminal)']
     case 'date':
       return [new Date().toString()]
     case 'sudo':
-      return ['sidor 不在 sudoers 文件中。', '这件事将被报告。……开玩笑的，学习路上人人平等。']
+      return ['zhihong 不在 sudoers 文件中。', '这件事将被报告。……开玩笑的，学习路上人人平等。']
     case 'konami':
       return ['↑ ↑ ↓ ↓ ← → ← → B A —— 你做到了！', '成就解锁：真正的探索者。']
     case 'clear':
@@ -81,7 +80,7 @@ export default function Terminal({
   onClose: () => void
 }) {
   const [history, setHistory] = useState<HistoryItem[]>([
-    { type: 'out', text: 'Last login: 刚才，来自一个想重新学习计算机的人。' },
+    { type: 'out', text: 'Last login: 刚才，来自一个学地质的人。' },
     { type: 'out', text: '输入 help 查看可用命令。' },
   ])
   const [value, setValue] = useState('')
@@ -112,7 +111,7 @@ export default function Terminal({
     setValue('')
     const outs = respond(cmd)
     if (outs.includes('__EXIT__')) {
-      setHistory((h) => [...h, { type: 'in', text: cmd }, { type: 'out', text: '再见，继续努力。' }])
+      setHistory((h) => [...h, { type: 'in', text: cmd }, { type: 'out', text: '再见，继续加油。' }])
       setTimeout(onClose, 400)
       return
     }
@@ -145,7 +144,7 @@ export default function Terminal({
           <span className="h-3 w-3 rounded-full bg-red-500/80" />
           <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
           <span className="h-3 w-3 rounded-full bg-green-500/80" />
-          <span className="ml-2 text-xs text-zinc-500">sidor@relearn-cs: ~</span>
+          <span className="ml-2 text-xs text-zinc-500">zhihong@geology: ~</span>
           <button
             className="ml-auto text-xs text-zinc-500 hover:text-zinc-300"
             onClick={onClose}

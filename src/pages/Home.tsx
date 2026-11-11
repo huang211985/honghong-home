@@ -3,7 +3,7 @@ import { Moon, Sun, Terminal as TerminalIcon, ChevronDown } from 'lucide-react'
 import Terminal from '@/components/Terminal'
 import VisitorCounter from '@/components/VisitorCounter'
 import { useTypewriter } from '@/hooks/useTypewriter'
-import photoZhihong from '@/assets/zhihong.jpg'
+import photoZhihong from '@/assets/zhihong'
 
 const HERO_LINES = [
   '欢迎来到我的个人网页。',
